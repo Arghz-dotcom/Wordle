@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../application.cpp"
 #include "../GameState.cpp"
+#include "../Loader.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
