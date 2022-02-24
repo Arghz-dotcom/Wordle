@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wordle", "Wordle.vcxproj", "{BEC07EE3-01C8-4417-8E40-FDB6A383D4A7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WordleTest2", "WordleTest2\WordleTest2.vcxproj", "{84806BF6-D659-4443-869B-F504F923262B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{BEC07EE3-01C8-4417-8E40-FDB6A383D4A7}.Release|x64.Build.0 = Release|x64
 		{BEC07EE3-01C8-4417-8E40-FDB6A383D4A7}.Release|x86.ActiveCfg = Release|Win32
 		{BEC07EE3-01C8-4417-8E40-FDB6A383D4A7}.Release|x86.Build.0 = Release|Win32
+		{84806BF6-D659-4443-869B-F504F923262B}.Debug|x64.ActiveCfg = Debug|x64
+		{84806BF6-D659-4443-869B-F504F923262B}.Debug|x64.Build.0 = Debug|x64
+		{84806BF6-D659-4443-869B-F504F923262B}.Debug|x86.ActiveCfg = Debug|Win32
+		{84806BF6-D659-4443-869B-F504F923262B}.Debug|x86.Build.0 = Debug|Win32
+		{84806BF6-D659-4443-869B-F504F923262B}.Release|x64.ActiveCfg = Release|x64
+		{84806BF6-D659-4443-869B-F504F923262B}.Release|x64.Build.0 = Release|x64
+		{84806BF6-D659-4443-869B-F504F923262B}.Release|x86.ActiveCfg = Release|Win32
+		{84806BF6-D659-4443-869B-F504F923262B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

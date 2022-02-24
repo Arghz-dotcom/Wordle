@@ -1,9 +1,9 @@
-#include <iostream>
-#include <vector>
-#include <io.h>
-#include <fcntl.h>
 
-using namespace std;
+
+#include "application.h"
+
+
+
 
 
 int ComputePattern(const string &tentative, string truth)
@@ -48,42 +48,17 @@ int ComputePattern(const string &tentative, string truth)
     return res;
 }
 
-string PatternToStringOfSquares(int pattern, int K)
-{
-    string res;
 
-    int current = pattern;
-    for(int k=0; k<K;k++)
-    {
-        int a = current%3;
-        res += a==2 ? "V" : (a==1 ? "J" : "G");
-        current = current/3;
-    }
-    return res;
-}
 
-void PrintTest(const string &truth, const string &word)
-{
-    cout << "(" << truth << ")" << " " << word << " " << PatternToStringOfSquares(ComputePattern(word,truth),word.size()) << endl;
-}
 
-void BasicRuleTest()
-{
-    PrintTest("ABCDE","AXXXX");     // 🟩⬛⬛⬛⬛ one good
-    PrintTest("ABCDE","XAXXX");     // ⬛🟨⬛⬛⬛ one misplaced
-    PrintTest("ABCDE","AEXXX");     // 🟩🟨⬛⬛⬛ one good one misplaced
 
-    PrintTest("ABCDE","AAXXX");     // 🟩⬛⬛⬛⬛ one good once
-    PrintTest("ABCDE","XAAXX");     // ⬛🟨⬛⬛⬛ double misplacement of the same letter
 
-    PrintTest("AABCD","AXAXX");     // 🟩⬛🟨⬛⬛ same letter twice one good, a second copy misplaced
-    PrintTest("AABCD","AAXXX");     // 🟩🟩⬛⬛⬛
-    PrintTest("AABCD","AAXXA");     // 🟩🟩⬛⬛⬛
-    PrintTest("AAACD","AAXXA");     // 🟩🟩⬛⬛🟨 there is a third copy somewhere
-}
 
 
 int main()
 {
-    BasicRuleTest();
+
+    
 }
+
+
