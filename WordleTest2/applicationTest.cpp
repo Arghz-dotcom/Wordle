@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "CppUnitTest.h"
 #include "../application.cpp"
+#include "../GameState.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
