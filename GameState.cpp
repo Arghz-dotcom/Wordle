@@ -62,7 +62,6 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
             char c = candidate_truth[k];
             if (c - ASCII_A != green_mask[k]) return false;
         }
-
     }
 
     // Then check each of the previous steps of the game, to see whether that candidate truth word could have produced that series of patterns
@@ -93,6 +92,6 @@ int GameState::NbOfCompatibleWords(const vector<string>& words)
     return cnt;
 }
 
-inline int GameState::GetWordSize() const { return K; }
+int GameState::GetWordSize() const { return K; }
 
 

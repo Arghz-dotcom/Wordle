@@ -82,19 +82,6 @@ namespace WordleTest2
 			string pattern = PatternToStringOfSquares(ComputePattern(word, truth), word.size());
 			Assert::AreEqual((string)"VVGGJ", pattern); // 🟩🟩⬛⬛🟨 there is a third copy somewhere
 		}
-	private:
-		string PatternToStringOfSquares(int pattern, int K)
-		{
-			string res;
-
-			int current = pattern;
-			for (int k = 0; k < K;k++)
-			{
-				int a = current % 3;
-				res += a == 2 ? "V" : (a == 1 ? "J" : "G");
-				current = current / 3;
-			}
-			return res;
-		}
+		
 	};
 }
