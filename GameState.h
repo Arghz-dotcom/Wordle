@@ -10,6 +10,7 @@ class GameState
 {
 private:
     static constexpr char ASCII_A = 65;
+    static const int NO_LETTER = -1;
     size_t wordSize;
     struct Step
     {

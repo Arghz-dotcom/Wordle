@@ -165,18 +165,21 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
     cout << "Nb of compatible words : " << nb_compat << " Entropy=" << log2(nb_compat);
 
     const int MAX_STEPS = 6;
-    for (int s = 0; s < MAX_STEPS; s++)
+    for (int step = 1; step <= MAX_STEPS; step++)
     {
         string proposal;
 
         // If first steps Use known best words for opening
-        if (s == 0)
+        if (step == 1)
         {
-            if (initial_mask == ".....") proposal = "TARIE";
-            if (initial_mask == "......") proposal = "SORTIE";
+            if (initial_mask == ".....")
+                proposal = "TARIE";
+            if (initial_mask == "......")
+                proposal = "SORTIE";
         }
 
-        if (proposal.empty()) proposal = ComputeBestChoice(state, words);
+        if (proposal.empty())
+            proposal = ComputeBestChoice(state, words);
         cout << '\n' << proposal;
 
         int pattern = ComputePattern(proposal, ground_truth);
@@ -184,8 +187,8 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
 
         if (proposal == ground_truth)
         {
-            cout << "SOLVED IN " << (s + 1) << " STEPS" << endl;
-            return s + 1;
+            cout << "SOLVED IN " << step << " STEPS" << endl;
+            return step;
         }
 
         double old_entropy = log2(state.NbOfCompatibleWords(words));

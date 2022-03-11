@@ -20,7 +20,7 @@ GameState::GameState(size_t K_, const string& mask)
         if (c_mask >= ASCII_A && c_mask < ASCII_A + 26)  // if the mask specifies a letter
             green_mask.push_back(c_mask - ASCII_A);
         else 
-            green_mask.push_back(-1);
+            green_mask.push_back(NO_LETTER);
     }
 }
 
@@ -56,10 +56,11 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
     // First check the green mask to save time
     for (int k = 0; k < wordSize; k++)
     {
-        if (green_mask[k] != -1)
+        if (green_mask[k] != NO_LETTER)
         {
             char c = candidate_truth[k];
-            if (c - ASCII_A != green_mask[k]) return false;
+            if (c - ASCII_A != green_mask[k])
+                return false;
         }
     }
 
@@ -69,9 +70,11 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
     {
         const string& word = steps[i].played_word;
         int pattern = steps[i].pattern;
-        if (ComputePattern(word, candidate_truth) != pattern) return false;   // not compatible == That candidate_truth would not have produced that observed pattern
+        if (ComputePattern(word, candidate_truth) != pattern)
+            return false;   // not compatible == That candidate_truth would not have produced that observed pattern
 
-        if (i == steps.size() - 1 && check_only_last_step) return true;
+        if (i == steps.size() - 1 && check_only_last_step)
+            return true;
     }
     return true;
 }
@@ -79,16 +82,14 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
 
 int GameState::NbOfCompatibleWords(const vector<string>& words)
 {
-    int cnt = 0;
-    for (int iw = 0; iw < words.size(); iw++)
+    int count = 0;
+    for (int wordIndex = 0; wordIndex < words.size(); wordIndex++)
     {
-        string word = words[iw];
+        string word = words[wordIndex];
         if (isCompatible(word, false))
-        {
-            cnt++;
-        }
+            count++;
     }
-    return cnt;
+    return count;
 }
 
 size_t GameState::GetWordSize() const { return wordSize; }
