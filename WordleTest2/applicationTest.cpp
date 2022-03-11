@@ -8,6 +8,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace WordleTest2
 {
+	/*
+	V: vert, matching same location
+	J: jaune, matching another location
+	G: gris, not matching
+	*/
+
 	TEST_CLASS(applicationTest)
 	{
 	public:

@@ -138,11 +138,17 @@ int ComputePattern(const string &tentative, string truth)
 
     }
 
+    int res = PatternToNumeric(tentative.size(), result);
+    return res;
+}
+
+int PatternToNumeric(int patternSize, vector<int> pattern)
+{
     int res = 0;
 
-    for(int k = 0; k < tentative.size(); k++)
+    for (int k = 0; k < patternSize; k++)
     {
-        res += result[k] * pow(3,k);
+        res += pattern[k] * pow(3, k);
     }
 
     return res;
