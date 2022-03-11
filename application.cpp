@@ -10,27 +10,25 @@
 float ComputeEntropy(const GameState& initial_state, const string& word, const vector<string>& possible_solutions)
 {
     float entropy = 0;
-    int K = (int)initial_state.GetWordSize();
+    int wordSize = (int)initial_state.GetWordSize();
 
     // For each pattern we could get, compute expected entropy
-    for (int pattern = 0; pattern < pow(3, K); pattern++)
+    for (int pattern = 0; pattern < pow(3, wordSize); pattern++)
     {
         // If we got that pattern from that word, in which state would we be
         GameState state(initial_state);
         state.Update(word, pattern);
 
         // In that case, count how many would be compatible as being the ground truth
-        int cnt = 0;
+        int count = 0;
         for (int jw = 0; jw < possible_solutions.size();jw++)
         {
             string candidate_word = possible_solutions[jw];
-            cnt += state.isCompatible(candidate_word, true);     // we are checking previously possible solutions, so we look only at last step
+            count += state.isCompatible(candidate_word, true);     // we are checking previously possible solutions, so we look only at last step
         }
-        float p = (float)cnt / (float)possible_solutions.size();
+        float p = count / (float)possible_solutions.size();
         if (p > 0)
-        {
             entropy += -p * log2(p);
-        }
     }
 
     return entropy;
@@ -47,13 +45,12 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
     {
         string word = words[iw];
         if (initial_state.isCompatible(word, false))
-        {
             possible_solutions.push_back(word);
-        }
     }
 
     // If only one, we are done
-    if (possible_solutions.size() == 1) return possible_solutions[0];
+    if (possible_solutions.size() == 1) 
+        return possible_solutions[0];
 
     // If less than 10 : display
     cout << "Number of possible solutions " << possible_solutions.size() << " :";

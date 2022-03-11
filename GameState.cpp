@@ -7,7 +7,8 @@
 GameState::GameState(int K_) //explicit ?
 {
     wordSize = K_;
-    for (int k = 0;k < wordSize;k++) green_mask.push_back(-1);
+    for (int k = 0;k < wordSize;k++)
+        green_mask.push_back(NO_LETTER);
 }
 
 // Constructor with mask
@@ -43,7 +44,7 @@ void GameState::Update(const string& word, int pattern)
             char c = word[k];
             green_mask[k] = (c - ASCII_A);   // 0 for letter A
         }
-        current = current / 3;
+        current /= 3;
     }
 }
 
