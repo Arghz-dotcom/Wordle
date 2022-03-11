@@ -12,7 +12,7 @@ GameState::GameState(int K_) //explicit ?
 }
 
 // Constructor with mask
-GameState::GameState(size_t K_, const string& mask)
+GameState::GameState(int K_, const string& mask)
 {
     wordSize = K_;
     for (int k = 0;k < wordSize;k++)
@@ -67,7 +67,7 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
 
     // Then check each of the previous steps of the game, to see whether that candidate truth word could have produced that series of patterns
     // We check in reverse assuming the later patterns carry more constraints (with option to check only that one if we know other are satisied)
-    for (auto i = steps.size() - 1; i >= 0; i--)
+    for (int i = steps.size() - 1; i >= 0; i--)
     {
         const string& word = steps[i].played_word;
         int pattern = steps[i].pattern;

@@ -156,7 +156,7 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
 {
     cout << "\n*** NEW GAME Truth=" << ground_truth << endl;
 
-    size_t K = words[0].size();
+    int K = (int)words[0].size();
     GameState state(K, initial_mask);
     int nb_compat = state.NbOfCompatibleWords(words);
     cout << "Nb of compatible words : " << nb_compat << " Entropy=" << log2(nb_compat);

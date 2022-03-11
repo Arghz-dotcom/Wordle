@@ -11,7 +11,7 @@ class GameState
 private:
     static constexpr char ASCII_A = 65;
     static const int NO_LETTER = -1;
-    size_t wordSize;
+    int wordSize;
     struct Step
     {
         Step(const string &word, int p) :
@@ -26,7 +26,7 @@ private:
 
 public:
     explicit GameState(int K_);
-    GameState(size_t K_, const string& mask);
+    GameState(int K_, const string& mask);
     GameState(const GameState& that);
     size_t GetWordSize() const;
     void Update(const string& word, int pattern);
