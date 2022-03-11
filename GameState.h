@@ -10,7 +10,7 @@ class GameState
 {
 private:
     static constexpr char ASCII_A = 65;
-    int K;
+    size_t wordSize;
     struct Step
     {
         Step(const string &word, int p) :
@@ -25,9 +25,9 @@ private:
 
 public:
     explicit GameState(int K_);
-    GameState(int K_, const string& mask);
+    GameState(size_t K_, const string& mask);
     GameState(const GameState& that);
-    int GetWordSize() const;
+    size_t GetWordSize() const;
     void Update(const string& word, int pattern);
     bool isCompatible(const string& candidate_truth, bool check_only_last_step) const;
     int NbOfCompatibleWords(const vector<string>& words);

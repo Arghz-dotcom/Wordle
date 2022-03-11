@@ -10,7 +10,7 @@
 float ComputeEntropy(const GameState& initial_state, const string& word, const vector<string>& possible_solutions)
 {
     float entropy = 0;
-    int K = initial_state.GetWordSize();
+    int K = (int)initial_state.GetWordSize();
 
     // For each pattern we could get, compute expected entropy
     for (int pattern = 0; pattern < pow(3, K); pattern++)
@@ -108,7 +108,7 @@ string PatternToStringOfSquares(int pattern, int K)
 
 int ComputePattern(const string &tentative, string truth)
 {
-    vector<int> result(tentative.size(), 0);
+    vector<int> result(tentative.size(), 0); // Grey coded by 0, default value
 
     for(int k = 0; k < tentative.size(); k++)
     {
@@ -142,13 +142,13 @@ int ComputePattern(const string &tentative, string truth)
     return res;
 }
 
-int PatternToNumeric(int patternSize, vector<int> pattern)
+int PatternToNumeric(size_t patternSize, vector<int> pattern)
 {
     int res = 0;
 
     for (int k = 0; k < patternSize; k++)
     {
-        res += pattern[k] * pow(3, k);
+        res += pattern[k] * (int)pow(3, k);
     }
 
     return res;
@@ -159,7 +159,7 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
 {
     cout << "\n*** NEW GAME Truth=" << ground_truth << endl;
 
-    int K = words[0].size();
+    size_t K = words[0].size();
     GameState state(K, initial_mask);
     int nb_compat = state.NbOfCompatibleWords(words);
     cout << "Nb of compatible words : " << nb_compat << " Entropy=" << log2(nb_compat);
@@ -180,7 +180,7 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
         cout << '\n' << proposal;
 
         int pattern = ComputePattern(proposal, ground_truth);
-        cout << " " << PatternToStringOfSquares(pattern, state.GetWordSize()) << " ";
+        cout << " " << PatternToStringOfSquares(pattern, (int)state.GetWordSize()) << " ";
 
         if (proposal == ground_truth)
         {
@@ -188,9 +188,9 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
             return s + 1;
         }
 
-        float old_entropy = log2(state.NbOfCompatibleWords(words));
+        double old_entropy = log2(state.NbOfCompatibleWords(words));
         state.Update(proposal, pattern);
-        float new_entropy = log2(state.NbOfCompatibleWords(words));
+        double new_entropy = log2(state.NbOfCompatibleWords(words));
 
         cout << "Entropy gain = " << (old_entropy - new_entropy);
         cout << " Nb of compatible words : " << state.NbOfCompatibleWords(words) << " New entropy=" << log2(state.NbOfCompatibleWords(words)) << " ";
@@ -200,7 +200,7 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
 
 int AutoWordle(const string& ground_truth)
 {
-    int K = ground_truth.size();
+    int K = (int)ground_truth.size();
 
     Loader loader;
     vector<string> words = loader.LoadWords(K, 4096);

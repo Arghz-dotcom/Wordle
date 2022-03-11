@@ -6,22 +6,21 @@
 // Base constructor
 GameState::GameState(int K_) //explicit ?
 {
-    K = K_;
-    for (int k = 0;k < K;k++) green_mask.push_back(-1);
+    wordSize = K_;
+    for (int k = 0;k < wordSize;k++) green_mask.push_back(-1);
 }
 
 // Constructor with mask
-GameState::GameState(int K_, const string& mask)
+GameState::GameState(size_t K_, const string& mask)
 {
-    K = K_;
-    for (int k = 0;k < K;k++)
+    wordSize = K_;
+    for (int k = 0;k < wordSize;k++)
     {
         char c_mask = mask[k];
         if (c_mask >= ASCII_A && c_mask < ASCII_A + 26)  // if the mask specifies a letter
-        {
             green_mask.push_back(c_mask - ASCII_A);
-        }
-        else green_mask.push_back(-1);
+        else 
+            green_mask.push_back(-1);
     }
 }
 
@@ -36,7 +35,7 @@ void GameState::Update(const string& word, int pattern)
 
     // Decode pattern to register green letters
     int current = pattern;
-    for (int k = 0;k < K;k++)
+    for (int k = 0;k < wordSize;k++)
     {
         int a = current % 3;
         if (a == 2)    // if the letter was good and well placed
@@ -55,7 +54,7 @@ void GameState::Update(const string& word, int pattern)
 bool GameState::isCompatible(const string& candidate_truth, bool check_only_last_step) const
 {
     // First check the green mask to save time
-    for (int k = 0; k < K; k++)
+    for (int k = 0; k < wordSize; k++)
     {
         if (green_mask[k] != -1)
         {
@@ -66,7 +65,7 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
 
     // Then check each of the previous steps of the game, to see whether that candidate truth word could have produced that series of patterns
     // We check in reverse assuming the later patterns carry more constraints (with option to check only that one if we know other are satisied)
-    for (int i = steps.size() - 1; i >= 0; i--)
+    for (auto i = steps.size() - 1; i >= 0; i--)
     {
         const string& word = steps[i].played_word;
         int pattern = steps[i].pattern;
@@ -92,6 +91,6 @@ int GameState::NbOfCompatibleWords(const vector<string>& words)
     return cnt;
 }
 
-int GameState::GetWordSize() const { return K; }
+size_t GameState::GetWordSize() const { return wordSize; }
 
 
