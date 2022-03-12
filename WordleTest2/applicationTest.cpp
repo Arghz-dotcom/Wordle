@@ -23,7 +23,7 @@ namespace WordleTest2
 			string truth = "ABCDE";
 			string word = "AXXXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VGGGG", pattern); // 🟩⬛⬛⬛⬛ one good
 		}
 
@@ -32,7 +32,7 @@ namespace WordleTest2
 			string truth = "ABCDE";
 			string word = "XAXXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"GJGGG", pattern); // ⬛🟨⬛⬛⬛ one misplaced
 		}
 
@@ -41,7 +41,7 @@ namespace WordleTest2
 			string truth = "ABCDE";
 			string word = "AEXXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VJGGG", pattern); // 🟩🟨⬛⬛⬛ one good one misplaced
 		}
 
@@ -50,7 +50,7 @@ namespace WordleTest2
 			string truth = "ABCDE";
 			string word = "AAXXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VGGGG", pattern); // 🟩⬛⬛⬛⬛ one good once
 		}
 
@@ -59,7 +59,7 @@ namespace WordleTest2
 			string truth = "ABCDE";
 			string word = "XAAXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"GJGGG", pattern); // ⬛🟨⬛⬛⬛ double misplacement of the same letter
 		}
 
@@ -68,7 +68,7 @@ namespace WordleTest2
 			string truth = "AABCD";
 			string word = "AXAXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VGJGG", pattern); // 🟩⬛🟨⬛⬛ same letter twice one good, a second copy misplaced
 		}
 
@@ -77,7 +77,7 @@ namespace WordleTest2
 			string truth = "AABCD";
 			string word = "AAXXX";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VVGGG", pattern); // 🟩🟩⬛⬛⬛
 		}
 
@@ -86,7 +86,7 @@ namespace WordleTest2
 			string truth = "AABCD";
 			PatternCompute patternCompute;
 			string word = "AAXXA";
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VVGGG", pattern); // 🟩🟩⬛⬛⬛
 		}
 
@@ -95,7 +95,7 @@ namespace WordleTest2
 			string truth = "AAACD";
 			string word = "AAXXA";
 			PatternCompute patternCompute;
-			string pattern = patternCompute.PatternToStringOfSquares(ComputePattern(word, truth), (int)word.size());
+			string pattern = patternCompute.PatternToStringOfSquares(patternCompute.Compute(word, truth), (int)word.size());
 			Assert::AreEqual((string)"VVGGJ", pattern); // 🟩🟩⬛⬛🟨 there is a third copy somewhere
 		}
 		

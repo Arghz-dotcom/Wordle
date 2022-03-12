@@ -90,47 +90,6 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
     return best_choice;
 }
 
-int ComputePattern(const string &tentative, string truth)
-{
-    vector<int> result(tentative.size(), 0); // Grey coded by 0, default value
-
-    for(int k = 0; k < tentative.size(); k++)
-    {
-        if(tentative[k]==truth[k])
-        {
-            result[k] = 2;        // Green coded by 2
-            truth[k] = '-';
-        }
-    }
-
-    for(int k = 0; k < tentative.size(); k++)
-    {
-        if (result[k] != 0) continue;
-
-        bool fnd = false;
-        for(int k2 = 0; k2 < tentative.size(); k2++)
-        {
-            // If found elsewhere and that elsewhere is not already green
-            if(tentative[k] == truth[k2])
-            {
-                fnd = true;
-                truth[k2] = '-';
-                break;
-            }
-        }
-        if(fnd)
-            result[k] = 1;    // Yellow coded by 1
-
-    }
-
-    PatternCompute patternCompute;
-    int res = patternCompute.PatternToNumeric((int)tentative.size(), result);
-    return res;
-}
-
-
-
-
 int AutomaticPlay(const vector<string>& words, const string& ground_truth, const string& initial_mask)
 {
     cout << "\n*** NEW GAME Truth=" << ground_truth << endl;
@@ -158,8 +117,8 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
             proposal = ComputeBestChoice(state, words);
         cout << '\n' << proposal;
 
-        int pattern = ComputePattern(proposal, ground_truth);
         PatternCompute patternCompute;
+        int pattern = patternCompute.Compute(proposal, ground_truth);
         cout << " " << patternCompute.PatternToStringOfSquares(pattern, (int)state.GetWordSize()) << " ";
 
         if (proposal == ground_truth)

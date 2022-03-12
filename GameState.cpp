@@ -1,5 +1,6 @@
 #include "application.h"
 #include "GameState.h"
+#include "PatternCompute.h"
 
 /* A class to contain the current state of the game : words that have been played, and patterns obtained */
 
@@ -71,7 +72,8 @@ bool GameState::isCompatible(const string& candidate_truth, bool check_only_last
     {
         const string& word = steps[i].played_word;
         int pattern = steps[i].pattern;
-        if (ComputePattern(word, candidate_truth) != pattern)
+        PatternCompute patternCompute;
+        if (patternCompute.Compute(word, candidate_truth) != pattern)
             return false;   // not compatible == That candidate_truth would not have produced that observed pattern
 
         if (i == steps.size() - 1 && check_only_last_step)
