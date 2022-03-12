@@ -95,6 +95,6 @@ int GameState::NbOfCompatibleWords(const vector<string>& words)
     return count;
 }
 
-size_t GameState::GetWordSize() const { return wordSize; }
+int GameState::GetWordSize() const { return wordSize; }
 
 

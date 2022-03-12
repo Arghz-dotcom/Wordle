@@ -45,22 +45,22 @@ int PatternCompute::Compute(const string& tentative, string truth)
     {
         if (result[k] != 0) continue;
 
-        bool fnd = false;
+        bool found = false;
         for (int k2 = 0; k2 < tentative.size(); k2++)
         {
             // If found elsewhere and that elsewhere is not already green
             if (tentative[k] == truth[k2])
             {
-                fnd = true;
+                found = true;
                 truth[k2] = '-';
                 break;
             }
         }
-        if (fnd)
+        if (found)
             result[k] = YELLOW;    // Yellow coded by 1
 
     }
 
-    int res = PatternToNumeric((int)tentative.size(), result);
-    return res;
+    int patternNumeric = PatternToNumeric((int)tentative.size(), result);
+    return patternNumeric;
 }

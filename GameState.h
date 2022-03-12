@@ -28,7 +28,7 @@ public:
     explicit GameState(int K_);
     GameState(int K_, const string& mask);
     GameState(const GameState& that);
-    size_t GetWordSize() const;
+    int GetWordSize() const;
     void Update(const string& word, int pattern);
     bool isCompatible(const string& candidate_truth, bool check_only_last_step) const;
     int NbOfCompatibleWords(const vector<string>& words);
