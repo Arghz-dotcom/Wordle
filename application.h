@@ -13,4 +13,4 @@ using namespace std;
 
 int ComputePattern(const string& tentative, string truth);
 
-int PatternToNumeric(size_t patternSize, vector<int> pattern);
+int PatternToNumeric(int patternSize, vector<int> pattern);

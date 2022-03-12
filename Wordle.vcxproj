@@ -22,11 +22,13 @@
     <ClCompile Include="application.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="PatternCompute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="PatternCompute.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

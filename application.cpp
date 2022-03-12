@@ -5,6 +5,7 @@
 #include "application.h"
 #include "GameState.h"
 #include "Loader.h"
+#include "PatternCompute.h"
 
 
 float ComputeEntropy(const GameState& initial_state, const string& word, const vector<string>& possible_solutions)
@@ -89,20 +90,6 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
     return best_choice;
 }
 
-string PatternToStringOfSquares(int pattern, int K)
-{
-    string res;
-
-    int current = pattern;
-    for (int k = 0; k < K;k++)
-    {
-        int a = current % 3;
-        res += a == 2 ? "V" : (a == 1 ? "J" : "G");
-        current = current / 3;
-    }
-    return res;
-}
-
 int ComputePattern(const string &tentative, string truth)
 {
     vector<int> result(tentative.size(), 0); // Grey coded by 0, default value
@@ -131,33 +118,25 @@ int ComputePattern(const string &tentative, string truth)
                 break;
             }
         }
-        if(fnd) result[k] = 1;    // Yellow coded by 1
+        if(fnd)
+            result[k] = 1;    // Yellow coded by 1
 
     }
 
-    int res = PatternToNumeric(tentative.size(), result);
+    PatternCompute patternCompute;
+    int res = patternCompute.PatternToNumeric((int)tentative.size(), result);
     return res;
 }
 
-int PatternToNumeric(size_t patternSize, vector<int> pattern)
-{
-    int res = 0;
 
-    for (int k = 0; k < patternSize; k++)
-    {
-        res += pattern[k] * (int)pow(3, k);
-    }
-
-    return res;
-}
 
 
 int AutomaticPlay(const vector<string>& words, const string& ground_truth, const string& initial_mask)
 {
     cout << "\n*** NEW GAME Truth=" << ground_truth << endl;
 
-    int K = (int)words[0].size();
-    GameState state(K, initial_mask);
+    int wordSize = (int)words[0].size();
+    GameState state(wordSize, initial_mask);
     int nb_compat = state.NbOfCompatibleWords(words);
     cout << "Nb of compatible words : " << nb_compat << " Entropy=" << log2(nb_compat);
 
@@ -180,7 +159,8 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
         cout << '\n' << proposal;
 
         int pattern = ComputePattern(proposal, ground_truth);
-        cout << " " << PatternToStringOfSquares(pattern, (int)state.GetWordSize()) << " ";
+        PatternCompute patternCompute;
+        cout << " " << patternCompute.PatternToStringOfSquares(pattern, (int)state.GetWordSize()) << " ";
 
         if (proposal == ground_truth)
         {
@@ -200,13 +180,14 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
 
 int AutoWordle(const string& ground_truth)
 {
-    int K = (int)ground_truth.size();
+    int wordSize = (int)ground_truth.size();
 
     Loader loader;
-    vector<string> words = loader.LoadWords(K, 4096);
+    vector<string> words = loader.LoadWords(wordSize, 4096);
 
     string initial_mask;
-    for (int k = 0;k < K;k++) initial_mask += '.';
+    for (int k = 0;k < wordSize;k++)
+        initial_mask += '.';
 
     int score = AutomaticPlay(words, ground_truth, initial_mask);
 
