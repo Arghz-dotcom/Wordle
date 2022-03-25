@@ -90,6 +90,21 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
     return best_choice;
 }
 
+string InitialProposal(int step, const string& initial_mask)
+{
+    string proposal;
+
+    // If first steps Use known best words for opening
+    if (step == 1)
+    {
+        if (initial_mask == ".....")
+            proposal = "TARIE";
+        if (initial_mask == "......")
+            proposal = "SORTIE";
+    }
+    return proposal;
+}
+
 int AutomaticPlay(const vector<string>& words, const string& ground_truth, const string& initial_mask)
 {
     cout << "\n*** NEW GAME Truth=" << ground_truth << endl;
@@ -102,17 +117,7 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
     const int MAX_STEPS = 6;
     for (int step = 1; step <= MAX_STEPS; step++)
     {
-        string proposal;
-
-        // If first steps Use known best words for opening
-        if (step == 1)
-        {
-            if (initial_mask == ".....")
-                proposal = "TARIE";
-            if (initial_mask == "......")
-                proposal = "SORTIE";
-        }
-
+        string proposal = InitialProposal(step, initial_mask);
         if (proposal.empty())
             proposal = ComputeBestChoice(state, words);
         cout << '\n' << proposal;
@@ -129,10 +134,11 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
 
         double old_entropy = log2(state.NbOfCompatibleWords(words));
         state.Update(proposal, pattern);
-        double new_entropy = log2(state.NbOfCompatibleWords(words));
+        int new_nbcompatiblewords = state.NbOfCompatibleWords(words);
+        double new_entropy = log2(new_nbcompatiblewords);
 
         cout << "Entropy gain = " << (old_entropy - new_entropy);
-        cout << " Nb of compatible words : " << state.NbOfCompatibleWords(words) << " New entropy=" << log2(state.NbOfCompatibleWords(words)) << " ";
+        cout << " Nb of compatible words : " << new_nbcompatiblewords << " New entropy=" << new_entropy << " ";
     }
     return MAX_STEPS;
 }

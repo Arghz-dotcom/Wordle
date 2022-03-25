@@ -15,7 +15,7 @@ namespace WordleTest2
 	G: gris, not matching
 	*/
 
-	TEST_CLASS(applicationTest)
+	TEST_CLASS(PatternComputeTest)
 	{
 	public:
 		TEST_METHOD(TestComputePattern1)
