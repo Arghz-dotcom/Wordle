@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "Loader.h"
 #include "PatternCompute.h"
+#include "Settings.h"
 
 
 float ComputeEntropy(const GameState& initial_state, const string& word, const vector<string>& possible_solutions)
@@ -35,6 +36,19 @@ float ComputeEntropy(const GameState& initial_state, const string& word, const v
     return entropy;
 }
 
+void DisplayBestChoices10(vector<string> possible_solutions)
+{
+    // If less than 10 : display
+    cout << "Number of possible solutions " << possible_solutions.size() << " :";
+    if (possible_solutions.size() < 10)
+    {
+        for (int iw = 0;iw < possible_solutions.size();iw++)
+        {
+            cout << possible_solutions[iw] << ",";
+        }
+    }
+    cout << endl;
+}
 
 string ComputeBestChoice(GameState initial_state, const vector<string>& words)
 {
@@ -53,19 +67,10 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
     if (possible_solutions.size() == 1) 
         return possible_solutions[0];
 
-    // If less than 10 : display
-    cout << "Number of possible solutions " << possible_solutions.size() << " :";
-    if (possible_solutions.size() < 10)
-    {
-        for (int iw = 0;iw < possible_solutions.size();iw++)
-        {
-            cout << possible_solutions[iw] << ",";
-        }
-    }
-    cout << endl;
+    DisplayBestChoices10(possible_solutions);
 
     // If less than 3, we limit our choice to the possible solutions, so we try to "shoot to kill"
-    if (possible_solutions.size() < 4)
+    if (possible_solutions.size() <= 3)
     {
         candidate_pool = possible_solutions;
     }
@@ -90,21 +95,6 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
     return best_choice;
 }
 
-string InitialProposal(int step, const string& initial_mask)
-{
-    string proposal;
-
-    // If first steps Use known best words for opening
-    if (step == 1)
-    {
-        if (initial_mask == ".....")
-            proposal = "TARIE";
-        if (initial_mask == "......")
-            proposal = "SORTIE";
-    }
-    return proposal;
-}
-
 int AutomaticPlay(const vector<string>& words, const string& ground_truth, const string& initial_mask)
 {
     cout << "\n*** NEW GAME Truth=" << ground_truth << endl;
@@ -113,11 +103,12 @@ int AutomaticPlay(const vector<string>& words, const string& ground_truth, const
     GameState state(wordSize, initial_mask);
     int nb_compat = state.NbOfCompatibleWords(words);
     cout << "Nb of compatible words : " << nb_compat << " Entropy=" << log2(nb_compat);
+    Settings settings;
 
     const int MAX_STEPS = 6;
     for (int step = 1; step <= MAX_STEPS; step++)
     {
-        string proposal = InitialProposal(step, initial_mask);
+        string proposal = settings.InitialProposal(step, initial_mask);
         if (proposal.empty())
             proposal = ComputeBestChoice(state, words);
         cout << '\n' << proposal;

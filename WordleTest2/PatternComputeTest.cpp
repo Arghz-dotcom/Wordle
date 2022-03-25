@@ -4,6 +4,7 @@
 #include "../GameState.cpp"
 #include "../Loader.cpp"
 #include "../application.cpp"
+#include "../Settings.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
