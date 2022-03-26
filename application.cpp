@@ -75,7 +75,7 @@ string ComputeBestChoice(GameState initial_state, const vector<string>& words)
         candidate_pool = possible_solutions;
     }
 
-    // Now find the word with the maximum entropy    
+    // Now find the word with the maximum entropy, the word where all patterns left the less number of possible words  
     string best_choice;
     float best_entropy = -1;
     for (int iw = 0; iw < candidate_pool.size(); iw++)
